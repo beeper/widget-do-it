@@ -58,42 +58,6 @@ export interface RoomMessageEvent {
     body: string;
 }
 
-// function WidgetPageContent() {
-//
-//     const {
-//         complete,
-//         completion,
-//         isLoading
-//     } = useCompletion({
-//         api: '/api/completion'
-//     })
-//
-//     const widgetApi = useWidgetApi();
-//
-//     async function fetchData(useUnread: boolean, limit: number = 500) {
-//         let roomEvents: RoomEvent<RoomMessageEvent>[] = await widgetApi.receiveRoomEvents('m.room.message');
-//         return roomEvents;
-//     }
-//
-//     useEffect(() => {
-//         fetchData(false)
-//             .then((messages) => {
-//                 let messages_text: string[] = []
-//                 messages.forEach((message) => {
-//                     messages_text.push(message.content.body);
-//                 })
-//
-//                 complete(messages_text.toString())
-//             })
-//     }, []);
-//
-//     return (
-//         <>
-//             <p>{completion}</p>
-//         </>
-//     )
-// }
-
 function WidgetPageContent() {
 
     const [hover, setHover] = useState(false);
