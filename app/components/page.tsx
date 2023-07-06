@@ -99,8 +99,8 @@ Output:\n`
     return (
         <div className="mx-auto w-full max-w-md py-24 flex flex-col stretch">
             {messages.slice(1).map(m => (
-                <div key={m.id} className={`${m.role === 'user' ? "bg-gray-400" : "bg-blue"} hover:bg-blue-300`}  onClick={sendMessage} onMouseOver={() => setHover(true)} onMouseOut={() => setHover(false)}>
-                    {m.content}
+                <div key={m.id} className={`${m.role === 'user' && "bg-gray-700 text-white"} rounded border-2 border-white p-2 hover:border-gray-700`}  onClick={sendMessage} onMouseOver={() => setHover(true)} onMouseOut={() => setHover(false)}>
+                    <pre className="whitespace-pre-wrap font-sans">{m.content}</pre>
                 </div>
             ))}
 
@@ -108,7 +108,7 @@ Output:\n`
 
             <form onSubmit={handleSubmit}>
                 <input
-                    className="fixed w-full max-w-md bottom-0 border border-gray-300 rounded mb-8 shadow-xl p-2"
+                    className="fixed w-full max-w-xs bottom-0 border border-gray-400 rounded mb-8 shadow-xl p-2"
                     value={input}
                     onChange={handleInputChange}
                 />
