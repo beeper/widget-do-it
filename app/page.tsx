@@ -1,13 +1,17 @@
 "use client"
-import {WidgetApiImpl} from '@matrix-widget-toolkit/api';
-import {
-    MuiThemeProvider,
-    MuiWidgetApiProvider,
-} from '@matrix-widget-toolkit/mui';
-import {WidgetApi} from '@matrix-widget-toolkit/api';
+
+import dynamic from "next/dynamic";
+import {WidgetApiImpl} from '@beeper/matrix-widget-toolkit-api';
+import {WidgetApi} from '@beeper/matrix-widget-toolkit-api';
 import {ReactElement} from "react";
 import WidgetPage from "@/app/components/page"
 
+const MuiThemeProvider = dynamic(() => import('@beeper/matrix-widget-toolkit-mui').then((mod) => mod.MuiThemeProvider), {
+    ssr: false,
+})
+const MuiWidgetApiProvider = dynamic(() => import('@beeper/matrix-widget-toolkit-mui').then((mod) => mod.MuiWidgetApiProvider), {
+    ssr: false,
+})
 
 // Initiate the widget API on startup. The Client will initiate
 // the connection with `capabilities` and we need to make sure
@@ -35,7 +39,7 @@ function App({
             <MuiWidgetApiProvider
                 widgetApiPromise={widgetApiPromise}
                 widgetRegistration={{
-                    name: 'Widget'
+                    name: 'Do It'
                 }}
             >
                 <WidgetPage />
