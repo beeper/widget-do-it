@@ -118,7 +118,7 @@ Output:\n`
 
             <form onSubmit={handleSubmit}>
                 <input
-                    className="fixed w-full max-w-xs bottom-0 border border-gray-400 rounded mb-8 shadow-xl p-2"
+                    className="fixed w-full max-w-md bottom-0 border border-gray-400 rounded mb-8 shadow-xl p-2 text-black"
                     value={input}
                     onChange={handleInputChange}
                 />
