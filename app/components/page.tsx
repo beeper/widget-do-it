@@ -67,7 +67,7 @@ function WidgetPageContent() {
     const widgetApi = useWidgetApi();
 
     async function fetchData(useUnread: boolean, limit: number = 500) {
-        let roomEvents: any[] = await widgetApi.receiveRoomEvents('m.room.message');
+        let roomEvents: any[] = await widgetApi.receiveRoomEvents('m.room.message', { limit: 20 });
         return roomEvents;
     }
 
@@ -78,6 +78,8 @@ function WidgetPageContent() {
                 messages.forEach((message) => {
                     messages_text.push(message.content.body);
                 })
+
+                // You are a button on the sidebar of the user's chat app. When the user clicks you, they would like you to do something based on the messages in the chat, shown below. This might mean providing information or clarification or acting on a request. Look at what the messages say and figure out what the user wants. Provide the user with the requested information or action. Prioritize the most recent messages. Messages:
 
                 append({
                     role: 'user',
@@ -96,15 +98,22 @@ Output:\n`
         })
     }
 
+    function Message({m}) {
+        const [hover, setHover] = useState(false);
+
+        return (
+            <div className={`${m.role === 'user' && "bg-gray-700 text-white"} relative rounded border-2 border-white p-2 hover:border-gray-700`}  onClick={sendMessage} onMouseOver={() => setHover(true)} onMouseOut={() => setHover(false)}>
+                { hover && <p className="text-center absolute top-0 left-0 right-0 max-w-sm mx-auto mt-2">Click to send to chat</p>}
+                <pre className={`${ hover && "blur-md" } whitespace-pre-wrap font-sans`}>{m.content}</pre>
+            </div>
+        )
+    }
+
     return (
         <div className="mx-auto w-full max-w-md py-24 flex flex-col stretch">
             {messages.slice(1).map(m => (
-                <div key={m.id} className={`${m.role === 'user' && "bg-gray-700 text-white"} rounded border-2 border-white p-2 hover:border-gray-700`}  onClick={sendMessage} onMouseOver={() => setHover(true)} onMouseOut={() => setHover(false)}>
-                    <pre className="whitespace-pre-wrap font-sans">{m.content}</pre>
-                </div>
+                <Message key={m.id} m={m} />
             ))}
-
-            { hover && <p className="bg-red-400 fixed bottom-20">This will send a message to the chat.</p>}
 
             <form onSubmit={handleSubmit}>
                 <input
