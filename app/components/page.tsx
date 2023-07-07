@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 // import {RoomEvent} from '@beeper/matrix-widget-toolkit-api';
 import { useChat } from 'ai/react'
+import {Message} from "ai";
 
 const MuiCapabilitiesGuard = dynamic(() => import('@beeper/matrix-widget-toolkit-mui').then((mod) => mod.MuiCapabilitiesGuard), {
     ssr: false,
@@ -98,7 +99,7 @@ Output:\n`
         })
     }
 
-    function Message({m}) {
+    function SingleMessage({m}: {m: Message}) {
         const [hover, setHover] = useState(false);
 
         return (
@@ -112,7 +113,7 @@ Output:\n`
     return (
         <div className="mx-auto w-full max-w-md py-24 flex flex-col stretch">
             {messages.slice(1).map(m => (
-                <Message key={m.id} m={m} />
+                <SingleMessage key={m.id} m={m} />
             ))}
 
             <form onSubmit={handleSubmit}>
